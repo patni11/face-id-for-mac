@@ -5,7 +5,7 @@ class Face_Detector():
     def detect(self,video,boxes=False):
         frame = video
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        face = cv2.CascadeClassifier('/Users/xenox/Documents/Coaaadinggg/Gesture_Detector/haarcascade_frontalface_default.xml')
+        face = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
         faces = face.detectMultiScale(gray,scaleFactor = 1.5,minNeighbors = 5)
         
         if faces != ():
