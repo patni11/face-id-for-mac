@@ -2,7 +2,7 @@ from playsound import playsound
 import sys
 import os
 import pickle #To save and retrieve weights
-sys.path.insert(0, '/Users/xenox/Documents/Coaaadinggg/Gesture_Detector/')
+#sys.path.insert(0, '/Users/xenox/Documents/Coaaadinggg/Gesture_Detector/')
 from Face_Recogniser import Face_Detector
 import cv2
 import pyautogui
@@ -10,7 +10,7 @@ import pyautogui
 face = Face_Detector()
 font = cv2.FONT_HERSHEY_PLAIN
 rec = cv2.face.LBPHFaceRecognizer_create() #rec for trec or recognizer
-rec.read('/Users/xenox/Documents/Coaaadinggg/Face-ID/trained.yml')
+rec.read('/Users/xenox/Documents/Coaaadinggg/Face-ID/trained.yml') #Use the full path of your trained.yml file. This file contains the weights for your face
 
 
 vid = cv2.VideoCapture(0)
@@ -20,25 +20,25 @@ while (vid.isOpened()):
     frame = cv2.flip(frame,1)
     img,roi,x,y = face.detect(frame)
 
-    with open('/Users/xenox/Documents/Coaaadinggg/Face-ID/label.pickle','rb') as f:
+    with open('/Users/xenox/Documents/Coaaadinggg/Face-ID/label.pickle','rb') as f: #Use the full path of your lable.pickle file. This file contains the name of recognized users
         labels = {a:b for b,a in pickle.load(f).items()}
     if roi != "No Face Detected":
         idd,conf = rec.predict(roi)
         
         if conf >= 0.8: 
-            if labels[idd] == "shubh":    
+            if labels[idd] == "shubh":   #Enter the name as in label.pickle file, for which the computer should log in 
                 pyautogui.click()             
-                pyautogui.write('Microsoft_Sucks')   
+                pyautogui.write('Microsoft_Sucks')   #Enter you password here
                 pyautogui.press('enter')
                 os.system("test")
-                os.system("say welcome shubh")  
+                os.system("say welcome shubh")   #Ask it to say whatever you want when user logs in
                 break
             else:
                 os.system("test")
-                os.system("say eat shit") 
+                os.system("say eat shit")  #Ask it to say whatever you want when someone else logs in
         else:
             os.system("test")
-            os.system("say eat shit")             
+            os.system("say eat shit")    #Ask it to say whatever you want when someone else logs in        
             #cv2.putText(img,labels[idd],(x,y + 20),font,1,(0,255,0),2)  
 
     #cv2.imshow('img',img)
@@ -47,4 +47,4 @@ while (vid.isOpened()):
         break
     
 cv2.destroyAllWindows()
-playsound('/Users/xenox/Downloads/napalm_death.mp3') 
+playsound('/Users/xenox/Downloads/napalm_death.mp3') #Replace this with the music of your choice. Or comment it if you do not want music
